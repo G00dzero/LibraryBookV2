@@ -50,7 +50,7 @@ namespace LibraryBookV2
 
             foreach (Books book in books)
             {
-                if (DateTime.Now >= book.DueDate && !notifiedBooks[book.Title])
+                if (DateTime.Now >= book.DueDate )
                 {
                     var result = MessageBox.Show($"The book '{book.Title}' is overdue.\n\nWould you like to return it?", "Book Overdue", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
@@ -91,7 +91,7 @@ namespace LibraryBookV2
         private void InitializeTimer()
         {
             // Initialize and configure the timer
-            timer1.Interval = 1000; // Set the interval to 1000 milliseconds (1 second)
+            timer1.Interval = 10500; // Set the interval to 1000 milliseconds (1 second)
             timer1.Tick += timer1_Tick;
         }
     }
