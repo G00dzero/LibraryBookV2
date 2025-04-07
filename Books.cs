@@ -8,18 +8,40 @@ namespace LibraryBookV2
 {
     internal class Books
     {
+        private string v1;
+        private string v2;
+        private string v3;
+
         public string Title { get; set; }
         public string Author { get; set; }
         public string Genre { get; set; }
         public Stocks quantity { get; set; }
+        public DateTime DueDate { get; set; }
 
-        public Books(string title, string author, string genre , Stocks quantity)
+        public Books(string title, string author, string genre, Stocks quantity, DateTime dueDate)
         {
             Title = title;
             Author = author;
             Genre = genre;
             this.quantity = quantity;
+           this.DueDate = dueDate;
         }
 
+        public Books(string v1, string v2, string v3)
+        {
+            this.v1 = v1;
+            this.v2 = v2;
+            this.v3 = v3;
+        }
+            public override bool Equals(object? obj)
+    {
+        if (obj is not Books other) return false;
+        return Title == other.Title && Author == other.Author && DueDate == other.DueDate;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Title, Author, DueDate);
+    }
     }
 }
