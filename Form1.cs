@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryBookV2
@@ -12,7 +13,7 @@ namespace LibraryBookV2
 
         private void loadData(List<Books> books)
         {
-            Books b = new Books("The Great Gatsby", "F. Scott Fitzgerald", "Fiction",);
+            Books b = new Books("The Great Gatsby", "F. Scott Fitzgerald", "Fiction");
             Books b1 = new Books("To Kill a Mockingbird", "Harper Lee", "Fiction");
             Books b2 = new Books("1984", "George Orwell", "Dystopian");
             Books b3 = new Books("The Wizard of Oz", "Goody", "fiction");
@@ -40,7 +41,12 @@ namespace LibraryBookV2
         private void timer1_Tick(object sender, EventArgs e)
         {
             List<Books> books = new List<Books>();
-            if
+            loadData(books);
+            int Due=0;
+            foreach (Books book in books)
+            {
+                
+            }
         }
         private void InitializeTimer()
         {
