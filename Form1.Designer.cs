@@ -39,6 +39,8 @@
             RdOutOfStock = new RadioButton();
             btnReturn = new Button();
             btnAdd = new Button();
+            btnStats = new Button();
+            timer2 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -127,11 +129,26 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
+            // btnStats
+            // 
+            btnStats.Location = new Point(696, 75);
+            btnStats.Name = "btnStats";
+            btnStats.Size = new Size(94, 29);
+            btnStats.TabIndex = 6;
+            btnStats.Text = "Statistics";
+            btnStats.UseVisualStyleBackColor = true;
+            btnStats.Click += btnStats_Click;
+            // 
+            // timer2
+            // 
+            timer2.Tick += timer2_Tick;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnStats);
             Controls.Add(btnAdd);
             Controls.Add(btnReturn);
             Controls.Add(RdOutOfStock);
@@ -158,5 +175,7 @@
         private RadioButton RdOutOfStock;
         private Button btnReturn;
         private Button btnAdd;
+        private Button btnStats;
+        private System.Windows.Forms.Timer timer2;
     }
 }

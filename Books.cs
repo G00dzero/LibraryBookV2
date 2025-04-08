@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryBookV2
 {
-    internal class Books
+    public class Books
     {
         private string v1;
         private string v2;
@@ -15,16 +15,18 @@ namespace LibraryBookV2
         public string Title { get; set; }
         public string Author { get; set; }
         public string Genre { get; set; }
-        public Stocks quantity { get; set; }
+        public Stocks stocks { get; set; }
         public DateTime DueDate { get; set; }
+        public int RentalCount { get; set; } // New property to track rental count
 
-        public Books(string title, string author, string genre, Stocks quantity, DateTime dueDate)
+        public Books(string title, string author, string genre, Stocks stocks, DateTime dueDate)
         {
             Title = title;
             Author = author;
             Genre = genre;
-            this.quantity = quantity;
-           this.DueDate = dueDate;
+            this.stocks = stocks;
+            this.DueDate = dueDate;
+            RentalCount = 0; // Initialize rental count
         }
 
         public Books(string v1, string v2, string v3)
@@ -33,15 +35,16 @@ namespace LibraryBookV2
             this.v2 = v2;
             this.v3 = v3;
         }
-            public override bool Equals(object? obj)
-    {
-        if (obj is not Books other) return false;
-        return Title == other.Title && Author == other.Author && DueDate == other.DueDate;
-    }
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Title, Author, DueDate);
-    }
+        public override bool Equals(object? obj)
+        {
+            if (obj is not Books other) return false;
+            return Title == other.Title && Author == other.Author && DueDate == other.DueDate;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Title, Author, DueDate);
+        }
     }
 }

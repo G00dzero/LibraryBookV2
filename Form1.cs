@@ -89,6 +89,11 @@ namespace LibraryBookV2
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = books;
             notifiedBooks.Remove(book.Title);
+
+            // Show message box when book is placed back in stock
+            MessageBox.Show($"The book '{book.Title}' has been returned and is now available for borrowing.", "Book Returned", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            RDInStock.Checked = true; // Check the radio button for in-stock books
         }
 
         private void InitializeTimer()
@@ -96,6 +101,9 @@ namespace LibraryBookV2
             // Initialize and configure the timer
             timer1.Interval = 10500; // Set the interval to 1000 milliseconds (1 second)
             timer1.Tick += timer1_Tick;
+            timer2.Interval = 120000; // Set the interval to 120000 milliseconds (2 minutes)
+            timer2.Tick += timer2_Tick;
+            timer2.Start(); // Start the timer
         }
 
         private void RDInStock_CheckedChanged(object sender, EventArgs e)
@@ -112,6 +120,7 @@ namespace LibraryBookV2
                     listView1.Items.Add(item);
                 }
             }
+
 
         }
 
@@ -176,6 +185,10 @@ namespace LibraryBookV2
                     books.Add(newBook);
                     dataGridView1.DataSource = null;
                     dataGridView1.DataSource = books;
+
+                    // Remove the book from returnedBooks and clear the listView1
+                    returnedBooks.RemoveAll(b => b.Title == title && b.Author == author && b.Genre == genre);
+                    listView1.Items.Clear();
                 }
                 else
                 {
@@ -186,6 +199,39 @@ namespace LibraryBookV2
             {
                 MessageBox.Show("Please select a book to add.", "No Book Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+
+        }
+
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            //if a book is selected in the data grid view and click the button, it will open the stats form and display the book's stats
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                Books selectedBook = (Books)dataGridView1.SelectedRows[0].DataBoundItem;
+                Form statsForm = new stats(selectedBook);
+                statsForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a book to view stats.", "No Book Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            // Generate random messages encouraging users to read rented books
+            if (books.Count > 0) // Ensure there are books to choose from
+            {
+                Random random = new Random();
+                int index = random.Next(0, books.Count);
+                string message = $"Woaw you courious Mind, Bored? Don't forget to read '{books[index].Title}' by {books[index].Author}!";
+
+                // Display the message in a MessageBox
+                MessageBox.Show(message, "Reading Reminder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
+    
+
