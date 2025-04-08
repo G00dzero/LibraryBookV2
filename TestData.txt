@@ -1,0 +1,9 @@
+Title|Author|Genre|BookID|Quantity|RentalCount|DueDate
+The Great Gatsby|F. Scott Fitzgerald|Fiction|1|10|3|2025-04-07 12:00
+To Kill a Mockingbird|Harper Lee|Fiction|2|5|5|2025-04-08 12:05
+1984|George Orwell|Dystopian|3|8|10|2025-04-18 10:00
+The Wizard of Oz|Goody|Fantasy|4|0|2|2025-04-15 08:00
+Brave New World|Aldous Huxley|Dystopian|5|0|7|2025-04-11 09:00
+Pride and Prejudice|Jane Austen|Romance|6|3|6|2025-04-13 18:00
+The Hobbit|J.R.R. Tolkien|Fantasy|7|2|4|2025-04-10 14:00
+The Catcher in the Rye|J.D. Salinger|Fiction|8|1|1|2025-04-08 13:00

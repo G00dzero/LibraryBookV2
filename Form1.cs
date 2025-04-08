@@ -17,24 +17,43 @@ namespace LibraryBookV2
             InitializeTimer();
         }
 
-        private void loadData(List<Books> books)
+        private void loadData(string filePath)
         {
-            DateTime dueDate1 = new DateTime(2025, 4, 7, 19, 40, 0); // Set specific due date
-            DateTime dueDate2 = new DateTime(2025, 5, 15, 18, 20, 0); // Set specific due date
-            DateTime dueDate3 = new DateTime(2025, 7, 23, 16, 0, 0); // Set specific due date
-            DateTime dueDate4 = new DateTime(2025, 4, 25, 8, 0, 0); // Set specific due date
+        
+        
+            string file = "TestData.txt"; // Make sure this is next to the .exe
 
-            Books b = new Books("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new Stocks(1, 10, null!), dueDate1);
-            Books b1 = new Books("To Kill a Mockingbird", "Harper Lee", "Fiction", new Stocks(2, 5, null!), dueDate2);
-            Books b2 = new Books("1984", "George Orwell", "Dystopian", new Stocks(3, 8, null!), dueDate3);
-            Books b3 = new Books("The Wizard of Oz", "Goody", "fiction", new Stocks(4, 0, null!), dueDate4);
-            books.Add(b);
-            books.Add(b1);
-            books.Add(b2);
-            books.Add(b3);
+            if (!File.Exists(file))
+            {
+                MessageBox.Show("TestData.txt not found!");
+                return;
+            }
 
-            notifiedBooks = books.ToDictionary(book => book.Title, book => false); // Initialize notifiedBooks
+            var lines = File.ReadAllLines(file);
+
+            foreach (var line in lines.Skip(1)) // Skip header
+            {
+                var parts = line.Split('|');
+                if (parts.Length < 7) continue;
+
+                string title = parts[0];
+                string author = parts[1];
+                string genre = parts[2];
+                int bookId = int.Parse(parts[3]);
+                int quantity = int.Parse(parts[4]);
+                int rentalCount = int.Parse(parts[5]);
+                DateTime dueDate = DateTime.Parse(parts[6]);
+
+                Books book = new Books(title, author, genre, new Stocks(bookId, quantity, null!), dueDate)
+                {
+                    RentalCount = rentalCount
+                };
+                books.Add(book);
+            }
+
+            notifiedBooks = books.ToDictionary(book => book.Title, book => false);
         }
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -43,7 +62,7 @@ namespace LibraryBookV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            loadData(books);
+            loadData("TestData.txt");
             dataGridView1.DataSource = books;
             timer1.Start(); // Start the timer when the form loads
         }
